@@ -6,6 +6,8 @@ import { v4 } from "uuid";
 function App() {
   const [imageUpload, setImageUpload] = useState(null);
   const [imageList, setImageList] = useState([]);
+  const [urlImg, setUrlImg] = useState('');
+  const [images, setImages] = useState([]);
 
   const imageListRef = ref(storage, "images/");
   const uploadImage = () => {
@@ -13,20 +15,34 @@ function App() {
     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
+        setUrlImg(url)
         setImageList((prev) => [...prev, url]);
       });
     });
   };
 
   useEffect(() => {
-    listAll(imageListRef).then((res) => {
-      res.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          setImageList((prev) => [...prev, url]);
-        });
-      });
-    });
-  }, []);
+    if (urlImg === '') return;
+    fetch('http://localhost:3000/images', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+          {
+            id: v4(),
+            url: urlImg,
+            category: 'kitechen'
+          }
+          )
+    })
+  }, [urlImg])
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/images`)
+    .then(res => res.json())
+    .then(data => setImages(data))
+  }, [])
 
   return (
     <div className="App">
@@ -38,8 +54,8 @@ function App() {
       />
       <button onClick={uploadImage}>Upload image</button>
 
-      {imageList.map((url) => {
-        return <img src={url} alt="" />;
+      {images.map((elem, index) => {
+        return <img key={index} src={elem.url} alt="" />;
       })}
     </div>
   );
