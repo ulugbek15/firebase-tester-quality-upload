@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     if (urlImg === '') return;
-    fetch('http://localhost:3000/images', {
+    fetch('https://642b0ef8f888334e2063cf04--curious-sundae-863c4f.netlify.app/images', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -36,7 +36,7 @@ function App() {
   }, [urlImg])
 
   useEffect(() => {
-    fetch(`http://localhost:3000/images`)
+    fetch(`https://642b0ef8f888334e2063cf04--curious-sundae-863c4f.netlify.app/images`)
     .then(res => res.json())
     .then(data => setImages(data))
   }, [])
