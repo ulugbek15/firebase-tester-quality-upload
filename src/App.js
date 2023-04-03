@@ -8,6 +8,7 @@ function App() {
   const [urlImg, setUrlImg] = useState("");
   const [images, setImages] = useState([]);
   const [imgType, setImgType] = useState("");
+  const [status, setStatus] = useState("");
 
   const uploadImage = () => {
     if (imageUpload == null) return;
@@ -21,8 +22,8 @@ function App() {
   };
 
   useEffect(() => {
-    if (urlImg === "") return;
-    fetch("http://localhost:3000/images", {
+    if(urlImg !== "" && imgType !== ""){
+      fetch("http://localhost:3000/images", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +33,8 @@ function App() {
         url: urlImg,
         category: imgType,  
       }),
-    });
+    }).then(res  => res.status === 201 ? setStatus("Image uploaded") : setStatus("Image not uploaded"))
+    }
   }, [urlImg]);
 
   useEffect(() => {
@@ -52,6 +54,8 @@ function App() {
       />
 
     <button style={{marginTop: "140px"}} onClick={uploadImage}>Upload image</button>
+
+    status: {status}
 
 
       <select  style={{display: "block", marginTop: "140px"}} onChange={(e) => setImgType(e.target.value)}>
