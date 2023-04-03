@@ -1,22 +1,19 @@
 import { useEffect, useState } from "react";
 import { storage } from "./firebase"; // to store images
-import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
 
 function App() {
   const [imageUpload, setImageUpload] = useState(null);
-  const [imageList, setImageList] = useState([]);
   const [urlImg, setUrlImg] = useState('');
   const [images, setImages] = useState([]);
 
-  const imageListRef = ref(storage, "images/");
   const uploadImage = () => {
     if (imageUpload == null) return;
     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
         setUrlImg(url)
-        setImageList((prev) => [...prev, url]);
       });
     });
   };
