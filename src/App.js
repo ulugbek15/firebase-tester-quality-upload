@@ -5,54 +5,65 @@ import { v4 } from "uuid";
 
 function App() {
   const [imageUpload, setImageUpload] = useState(null);
-  const [urlImg, setUrlImg] = useState('');
+  const [urlImg, setUrlImg] = useState("");
   const [images, setImages] = useState([]);
+  const [imgType, setImgType] = useState("");
 
   const uploadImage = () => {
     if (imageUpload == null) return;
     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
     uploadBytes(imageRef, imageUpload).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
-        setUrlImg(url)
+        console.log(url, 'url')
+        setUrlImg(url);
       });
     });
   };
 
   useEffect(() => {
-    if (urlImg === '') return;
-    fetch('https://642b0ef8f888334e2063cf04--curious-sundae-863c4f.netlify.app/images', {
-      method: 'POST',
+    if (urlImg === "") return;
+    fetch("http://localhost:3000/images", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(
-          {
-            id: v4(),
-            url: urlImg,
-            category: 'kitechen'
-          }
-          )
-    })
-  }, [urlImg])
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: v4(),
+        url: urlImg,
+        category: imgType,  
+      }),
+    });
+  }, [urlImg]);
 
   useEffect(() => {
-    fetch(`https://642b0ef8f888334e2063cf04--curious-sundae-863c4f.netlify.app/images`)
-    .then(res => res.json())
-    .then(data => setImages(data))
-  }, [])
+    fetch(`http://localhost:3000/images`)
+      .then((res) => res.json())
+      .then((data) => setImages(data));
+  }, []);
 
   return (
     <div className="App">
       <input
+      style={{marginTop: "120px"}}
         type="file"
         onChange={(event) => {
           setImageUpload(event.target.files[0]);
         }}
       />
-      <button onClick={uploadImage}>Upload image</button>
+
+    <button style={{marginTop: "140px"}} onClick={uploadImage}>Upload image</button>
+
+
+      <select  style={{display: "block", marginTop: "140px"}} onChange={(e) => setImgType(e.target.value)}>
+        <option value="kitchen">Kitchen</option>
+        <option value="bathroom">Bathroom</option>
+        <option value="fireplace">Fireplace</option>
+        <option value="flooring">Flooring</option>
+      </select>
+
 
       {images.map((elem, index) => {
-        return <img key={index} src={elem.url} alt="" />;
+        return <img style={{marginTop: "120px"}} key={index} src={elem.url} alt="" />;
       })}
     </div>
   );
