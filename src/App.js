@@ -19,8 +19,6 @@ function App() {
         setUrlImg(url);
       });
     });
-
-    console.log(imageRef, "imageRef");
   };
 
   useEffect(() => {
