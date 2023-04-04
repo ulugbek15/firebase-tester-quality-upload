@@ -21,7 +21,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "json-server --watch db.json --port 3000 & react-scripts start",
+    "start": "json-server --watch db.json --port https://main--bespoke-kitten-69ae5f.netlify.app/ & react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
