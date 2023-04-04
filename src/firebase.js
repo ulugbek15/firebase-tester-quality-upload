@@ -2,12 +2,13 @@ import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCVsrwui7u43CZ7WkxMynl1PvC3YPSnZVo",
-  authDomain: "totalquality-bf7cb.firebaseapp.com",
-  projectId: "totalquality-bf7cb",
-  storageBucket: "totalquality-bf7cb.appspot.com",
-  messagingSenderId: "502881214394",
-  appId: "1:502881214394:web:d53fa6075df4c9ef71c783",
+  apiKey: "AIzaSyB7pZpe9Y20kgzXyssCt1a-xE7LP1a3jsI",
+  authDomain: "total-quality-express.firebaseapp.com",
+  projectId: "total-quality-express",
+  storageBucket: "total-quality-express.appspot.com",
+  messagingSenderId: "369030460010",
+  appId: "1:369030460010:web:a70367ba6f03645d771013",
+  measurementId: "G-FTGPESPFHH",
 };
 
 const app = initializeApp(firebaseConfig);
