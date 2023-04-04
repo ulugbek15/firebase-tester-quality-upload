@@ -1,0 +1,5 @@
+{
+  "images": [
+    { "id": 1, "url": "http://picsum.photos/200", "category": "kitchen" }
+  ]
+}
