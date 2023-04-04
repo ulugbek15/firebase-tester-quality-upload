@@ -71,12 +71,17 @@ function App() {
       </select>
       {images.map((elem, index) => {
         return (
-          <img
-            style={{ marginTop: "120px" }}
-            key={index}
-            src={elem.url}
-            alt=""
-          />
+          <div key={index}>
+            <img
+              style={{ marginTop: "120px" }}
+              key={index}
+              src={elem.url}
+              alt=""
+            />
+            <span>
+              {index + 1} {elem.category}
+            </span>
+          </div>
         );
       })}
     </div>
