@@ -39,7 +39,7 @@ function App() {
           : setStatus("Image not uploaded")
       );
     }
-  }, [urlImg]);
+  }, [urlImg, imgType]);
 
   useEffect(() => {
     fetch(`http://localhost:3000/images`)
