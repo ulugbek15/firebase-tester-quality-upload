@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
     if (urlImg !== "" && imgType !== "") {
-      fetch("https://main--bespoke-kitten-69ae5f.netlify.app/images", {
+      fetch("http://localhost:3000/images", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -42,7 +42,7 @@ function App() {
   }, [urlImg, imgType]);
 
   useEffect(() => {
-    fetch(`https://main--bespoke-kitten-69ae5f.netlify.app/images`)
+    fetch(`http://localhost:3000/images`)
       .then((res) => res.json())
       .then((data) => setImages(data));
   }, []);
